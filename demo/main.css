@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #eee;
+  font: 1em/1.5 "Source Sans Pro", sans-serif;
+}
+
+[role="banner"] h1 {
+  background: #222;
+  color: #ffcb08;
+  font: 3em/300px "Permanent Marker";
+  text-align: center;
+}
+
+[role="main"] {
+  padding: 20px;
+}
+
+.game {
+  background: white;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  max-width: 950px;
+  min-height: 143px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+.game__time {
+  display: none;
+}
+
+.team {
+  float: left;
+  font-weight: 600;
+  line-height: 100px;
+  overflow: hidden;
+  text-transform: uppercase;
+  width: 50%;
+}
+
+.team__flag {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  float: left;
+  height: 140px;
+  width: 35%; 
+}
+
+.team__name,
+.team__score {
+  float: left;
+  padding: 20px;
+}
+
+.team__name {
+  text-align: center;
+  width: 40%;
+}
+
+.team__score {
+  font-size: 3em;
+  font-weight: 700;
+  text-align: right;
+  width: 25%;
+}
+
+.team:last-child .team__flag,
+.team:last-child .team__name,
+.team:last-child .team__score {
+  float: right;
+}
+
+.team:last-child .team__score {
+  text-align: left;
+}
+
+.country--pa .team__flag { background-image: url(images/PA.png); }
+.country--ht .team__flag { background-image: url(images/HT.png); }
+.country--us .team__flag { background-image: url(images/US.png); }
+.country--hn .team__flag { background-image: url(images/HN.png); }
+
+.last-updated {
+  color: #aaa;
+  text-align: center;
+  text-transform: uppercase;
+}

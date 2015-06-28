@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo: 2015 CONCACAF Gold Cup Games</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700|Permanent+Marker">
+    <link rel="stylesheet" href="main.css">
+  </head>
+
+  <body>
+    <header role="banner">
+      <h1>2015 CONCACAF Gold Cup</h1>
+    </header>
+
+    <main role="main">
+      <div class="game" data-sheet-name="Group: Panama-Haiti">
+        <div class="game__time"></div>
+        <div class="game__team--1 team country--pa"></div>
+        <div class="game__team--2 team country--ht"></div>
+      </div>
+
+      <div class="game" data-sheet-name="Group: USA-Honduras">
+        <div class="game__time"></div>
+        <div class="game__team--1 team country--us"></div>
+        <div class="game__team--2 team country--hn"></div>
+      </div>
+    </main>
+
+    <footer role="contentinfo">
+      <div class="last-updated">Last updated…</div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        update();
+        window.updateInterval = window.setInterval(update, 500);
+      });
+
+      function update() {
+        $('.game').each(function() {
+          var sheetName = $(this).attr('data-sheet-name');
+          getScores($(this), sheetName);
+        });
+      }
+
+      function getScores($ele, sheetName) {
+        var endpoint = 'https://script.google.com/macros/s/AKfycbwr5xlqoYArPtuqtYWKxM_MBxHaBKX60rdj2MuOwTouLDKk8cA/exec';
+        var params = {
+          key: '1ixfEGtKDn7QwqU0RFLDjNw8I7tgBsU20vBG2Qkxy8_0',
+          sheetName: sheetName
+        };
+        var url = `${endpoint}?${$.param(params)}`;
+        
+        $.ajax({
+          method: 'GET',
+          url: url
+        })
+        .done(function(data) {
+          updateView($ele, data);
+          var requestedAt = new Date(data.requested_at);
+          var lastUpdated = `${requestedAt.toLocaleDateString()} at ${requestedAt.toLocaleTimeString()}`;
+          $('.last-updated').text(`Last updated ${lastUpdated}`);
+        });
+      }
+
+      function updateView($ele, data) {
+        $ele.find('.game__time').text(data.game_time);
+        $.each([1, 2], function(i, num) {
+          var name = data[`team_${num}`];
+          var score = data[`score_${num}`];
+          var $team = $ele.find(`.game__team--${num}`);
+          var $flag = foo($team, 'flag');
+          var $name = foo($team, 'name');
+          var $score = foo($team, 'score');
+          $name.text(name);
+          $score.text(score);
+        });
+      }
+      
+      function foo($team, bar) {
+        var $ele = $team.find(`.team__${bar}`);
+        if ($ele.length === 0) {
+          $team.append(`<div class="team__${bar}">`);
+          $ele = $team.find(`.team__${bar}`);
+        }
+        return $ele;
+      }
+    </script>
+  </body>
+</html>
