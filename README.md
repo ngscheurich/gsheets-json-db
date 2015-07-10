@@ -1,7 +1,7 @@
 Google Sheets JSON Database
 ===========================
 
-This is a Google Apps Script that turns a Google Sheets document into a simple key-data store that is exposed as JSON over HTTP. For now, this project only supports strings as values, [*okaaaay?*](https://www.youtube.com/watch?v=L5c9sktMB1s)
+This is a Google Apps Script that turns a Google Sheets document into a simple key-value store that is exposed as JSON over HTTP. For now, this project only supports strings as values, [*okaaaay?*](https://www.youtube.com/watch?v=L5c9sktMB1s)
 
 Usage
 -----
